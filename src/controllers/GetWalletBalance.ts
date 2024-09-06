@@ -11,7 +11,15 @@ const client = new RestClientV5({
 async function getWalletBalance(req: Request, res: Response) {
   if (req.body) {
     let { coin, accountType } = req.body;
-    const result = await client.getWalletBalance({ coin, accountType });
+    const result = await client.getWalletBalance({
+      coin: "USDT",
+      accountType: "CONTRACT",
+    });
+    const coinData = result.result.list[0].coin[0];
+    console.log("Equity:", coinData.equity);
+    console.log("Coin:", coinData.coin);
+    console.log("Unrealised PnL:", coinData.unrealisedPnl);
+    console.log("Cumulative Realised PnL:", coinData.cumRealisedPnl);
     res.status(200).json({
       result: result,
     });
