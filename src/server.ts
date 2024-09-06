@@ -1,6 +1,10 @@
 import express from "express";
+import { configureMiddleWare } from "./middlewares";
+import { ConfigureRoutes } from "./routes";
 
 const app = express();
+configureMiddleWare(app);
+ConfigureRoutes(app);
 
 const start = async () => {
   console.log(`---`.repeat(10));
