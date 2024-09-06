@@ -1,0 +1,9 @@
+{
+  "name": "anker-world",
+  "version": "1.0.0",
+  "description": "Bybit V5 Trading Bot",
+  "main": "index.js",
+  "repository": "https://github.com/alvienzo720/anker-world",
+  "author": "Alvin Mutebi",
+  "license": "MIT"
+}
