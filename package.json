@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Bybit V5 Trading Bot",
   "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev src/server.ts"
+  },
   "repository": "https://github.com/alvienzo720/anker-world",
   "author": "Alvin Mutebi",
   "license": "MIT",
