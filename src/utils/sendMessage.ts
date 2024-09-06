@@ -26,3 +26,5 @@ const sendMessage = async (message: string, delete_message?: boolean) => {
     console.log("error:", error);
   }
 };
+
+export { sendMessage };
