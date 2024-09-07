@@ -2,10 +2,13 @@ import express from "express";
 import { configureMiddleWare } from "./middlewares";
 import { ConfigureRoutes } from "./routes";
 import { bot } from "./bot";
+// import { getCurrentPrice } from "./controllers/getTickers";
 
 const app = express();
 configureMiddleWare(app);
 ConfigureRoutes(app);
+
+// getCurrentPrice("BTCUSDT", "linear");
 
 const start = async () => {
   console.log(`---`.repeat(10));
