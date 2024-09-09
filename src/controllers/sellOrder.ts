@@ -1,8 +1,7 @@
-import { RestClientV5 } from "bybit-api";
+import { RestClientV5, OrderParamsV5 } from "bybit-api";
 import { BotConfigs } from "../config";
 import { getCurrentPrice } from "./getCurrentPrice";
 import { MakeOrder } from "./makeOrder";
-import { OrderParamsV5 } from "bybit-api"; // Added import for OrderParamsV5
 import { sendMessage } from "../utils";
 import { getPnl } from "./getPnl";
 
@@ -12,43 +11,38 @@ const client = new RestClientV5({
   secret: BotConfigs.API_SECRET,
 });
 
-async function Buy() {
+export const sell = async () => {
   try {
     const price = Number(await getCurrentPrice("BTCUSDT", "linear"));
     const params: OrderParamsV5 = {
       category: "linear",
       symbol: "BTCUSDT",
-      side: "Buy",
-      orderType: "Limit",
+      side: "Sell",
       qty: "0.005",
-      price: price.toString(),
+      orderType: "Limit",
       timeInForce: "GTC",
-      reduceOnly: false,
+      reduceOnly: true,
       closeOnTrigger: false,
+      price: (price + 0.05).toString(),
       positionIdx: 0,
     };
-    params.price =
-      params.side === "Buy"
-        ? (price - 0.05).toString()
-        : (price + 0.05).toString();
-    // console.log(params);
-    const result = await MakeOrder(params);
-    if (result) {
-      // console.log("Result", result);
-      const { retCode, retMsg } = result;
-      let message = `Placing an Order now`;
-      message = `\n OrderID: \`${result.result.orderId}\``;
+
+    const order = await MakeOrder(params);
+    if (order) {
+      // console.log("Sell order placed:", order);
+      // sendMessage(`Sell order placed: ${JSON.stringify(order)}`);
+      let message = `Sell Order Placed`;
+      message = `\n OrderID: \`${order.result.orderId}\``;
       message += `\n Symbol: \`${params.symbol}\``;
-      message += `\n Order Id: \` ${params.price}\``;
+      message += `\n Order Price: \` ${params.price}\``;
       message += `\n Oty: \`${params.qty}\``;
       message += `\n Side: \`${params.side}\``;
       sendMessage(message);
-      getPnl.start();
-      // Handle retCode and retMsg here
+    } else {
+      sendMessage("An error might have occurred");
     }
   } catch (error) {
-    console.log(error);
+    console.error("Error placing sell order:", error);
+    sendMessage(`Error placing sell order: ${error}`);
   }
-}
-
-export { Buy };
+};

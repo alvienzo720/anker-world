@@ -14,7 +14,7 @@ async function getCurrentPrice(symbol: string, category: any) {
       category,
     });
     const lastPrice = result.list[0]?.lastPrice;
-    console.log("Last price", lastPrice);
+    // console.log("Last price", lastPrice);
     if (retCode === 0) {
       return lastPrice ? parseFloat(lastPrice) : null;
     }
