@@ -2,8 +2,8 @@ import express from "express";
 import { configureMiddleWare } from "./middlewares";
 import { ConfigureRoutes } from "./routes";
 import { bot } from "./bot";
-import { getKline } from "./controllers/GetKline";
-import { Buy } from "./controllers/buyOrder";
+// import { getKline } from "./controllers/GetKline";
+// import { Buy } from "./controllers/buyOrder";
 // import { getCurrentPrice } from "./controllers/getTickers";
 
 const app = express();
@@ -12,7 +12,7 @@ ConfigureRoutes(app);
 
 // getCurrentPrice("BTCUSDT", "linear");
 // getKline("BTCUSDT", "1", "linear");
-Buy();
+// Buy();
 
 const start = async () => {
   console.log(`---`.repeat(10));
