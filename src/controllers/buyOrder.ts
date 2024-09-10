@@ -38,7 +38,7 @@ async function Buy(maxRetries: number = 100) {
       console.log(
         `Attempt ${
           retryCount + 1
-        }: Placing order with price below current price please wait ...`
+        }: Placing order with price below current price`
       );
       const result = await MakeOrder(params);
 

@@ -37,7 +37,7 @@ export const sell = async (maxRetries: number = 100) => {
       console.log(
         `Attempt ${
           retryCount + 1
-        }: Placing sell order with price above current price please wait ...`
+        }: Placing sell order with price above current price`
       );
       const order = await MakeOrder(params);
 
