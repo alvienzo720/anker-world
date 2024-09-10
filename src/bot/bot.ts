@@ -3,6 +3,7 @@ import { BotConfigs } from "../config";
 import { Buy, getWalletBalance, sell } from "../controllers";
 import { sendMessage } from "../utils";
 import { getPnl } from "../controllers/getPnl";
+import { CancelOrder } from "../controllers/cancelOrder";
 
 const bot = new Telegraf(BotConfigs.TOKEN);
 
@@ -17,7 +18,7 @@ bot.start((ctx) => {
     [Markup.button.callback("📊 Wallet Balance", "getbalance")],
     [Markup.button.callback("💰 Buy", "buy")],
     [Markup.button.callback("💸 Sell", "sell")],
-    [Markup.button.callback("❌ Cancel Order", "closeorder")],
+    [Markup.button.callback("❌ Cancel Order", "cancelorder")],
   ]);
 
   ctx.reply("What would you like to do?", mainMenu);
@@ -31,6 +32,15 @@ bot.command("getpnl", async (ctx) => {
     console.log(error);
     let message = "Couldnt get Positions";
     sendMessage(message);
+  }
+});
+
+bot.command("cancelorder", async (ctx) => {
+  try {
+    CancelOrder("linear");
+  } catch (error) {
+    console.log(error);
+    console.log(error);
   }
 });
 
@@ -51,8 +61,7 @@ bot.action("getbalance", async (ctx) => {
 
 bot.action("buy", async (ctx) => {
   try {
-    console.log("Buy called");
-    await Buy();
+    await Buy(10);
     // ctx.reply("Buy order placed successfully!");
   } catch (error) {
     console.error("Error placing buy order:", error);
@@ -64,7 +73,7 @@ bot.action("buy", async (ctx) => {
 
 bot.action("sell", async (ctx) => {
   try {
-    await sell();
+    await sell(10);
     ctx.reply("Sell order placed successfully!");
   } catch (error) {
     console.error("Error placing sell order:", error);

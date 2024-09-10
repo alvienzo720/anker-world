@@ -19,8 +19,8 @@ async function MakeOrder(params: OrderParamsV5) {
     } else if (retCode === 10001) {
       let message =
         params.side === "Buy"
-          ? "Place order with price below current price"
-          : "Place order with price above current price";
+          ? "Place order with price below current price please wait ..."
+          : "Place order with price above current price please wait ...";
       sendMessage(message);
     } else {
       console.log(retCode, retMsg);
